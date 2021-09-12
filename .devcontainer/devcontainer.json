@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.194.0/containers/java
 {
-	"name": "Java",
+	"name": "Clojure",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
@@ -27,8 +27,11 @@
 	"remoteEnv": {
 		"PATH": "${containerEnv:PATH}:/usr/bin/clojure/bin",
 	},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [
+		9007,
+		9009,
+		9011,
+	],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "java -version",
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.

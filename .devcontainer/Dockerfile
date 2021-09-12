@@ -17,7 +17,6 @@ RUN if [ "${INSTALL_MAVEN}" = "true" ]; then su vscode -c "umask 0002 && . /usr/
 ARG NODE_VERSION="none"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
-# [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends rlwrap
 
@@ -35,4 +34,12 @@ RUN curl -Lo ${CLOJURE_INSTALLER} ${CLOJURE_URL} \
     && echo "MANPATH_MAP ${CLOJURE_PATH}/bin ${CLOJURE_PATH}/man" >> /etc/man_db.conf \
     && mandb \
     && rm ${CLOJURE_INSTALLER}
+
+# add lein (automation tool for clojure projects)
+ARG LEIN_URL="https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein"
+ARG LEIN_PATH="/usr/bin/lein"
+RUN curl -Lo ${LEIN_PATH} ${LEIN_URL} \
+    && chmod a+x ${LEIN_PATH} \
+    && ${LEIN_PATH}
+
 
